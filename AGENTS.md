@@ -6,8 +6,9 @@ Full product spec: **`prompt.md`** (personality, API, stack, deployment). Read i
 
 ## Language
 
-- **Code, comments, UI strings, user-facing errors, and project docs** → **French**.
-- Assistant runtime replies → French, per Yuki personality in `prompt.md` §1.
+- **Product (code comments, UI copy, user-facing API errors, README for end users)** → **French**, per `prompt.md`.
+- **Yuki’s runtime replies** → French (persona in `prompt.md` §1).
+- **Talking to the project maintainer** (explanations, PR descriptions, chat with the human) → **English** unless they ask otherwise.
 
 ## Stack (target)
 

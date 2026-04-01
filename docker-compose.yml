@@ -1,0 +1,20 @@
+# Services de développement — Yuki Assistant
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: yuki
+      POSTGRES_PASSWORD: yuki
+      POSTGRES_DB: yuki
+    ports:
+      - "5432:5432"
+    volumes:
+      - yuki_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yuki -d yuki"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  yuki_pgdata:

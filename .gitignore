@@ -10,6 +10,7 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+backend/.venv/
 node_modules/
 dist/
 build/
