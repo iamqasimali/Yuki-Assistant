@@ -24,7 +24,7 @@ target_metadata = Base.metadata
 def get_sync_url() -> str:
     raw = os.environ.get(
         "DATABASE_URL",
-        "postgresql+asyncpg://yuki:yuki@localhost:5432/yuki",
+        "postgresql+asyncpg://yuki:yuki@localhost:5433/yuki",
     )
     if "+asyncpg" in raw:
         return raw.replace("+asyncpg", "+psycopg", 1)

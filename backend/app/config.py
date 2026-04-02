@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     )
 
     # Base de données PostgreSQL (asyncpg)
-    database_url: str = "postgresql+asyncpg://yuki:yuki@localhost:5432/yuki"
+    database_url: str = "postgresql+asyncpg://yuki:yuki@localhost:5433/yuki"
 
     # Authentification : hash bcrypt du mot de passe (voir .env.example)
     yuki_password_hash: str = ""

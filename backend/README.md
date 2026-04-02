@@ -23,7 +23,7 @@ docker compose up -d db
 Appliquer les migrations :
 
 ```bash
-export DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5432/yuki
+export DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5433/yuki
 uv run alembic upgrade head
 ```
 
