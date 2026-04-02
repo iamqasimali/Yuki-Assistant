@@ -25,7 +25,7 @@ Si `alembic` échoue avec **`role "yuki" does not exist`**, le port 5432 est pro
 Appliquer les migrations :
 
 ```bash
-export DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5432/yuki
+export DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5433/yuki
 uv run alembic upgrade head
 ```
 
