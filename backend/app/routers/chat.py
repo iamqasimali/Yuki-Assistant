@@ -7,15 +7,24 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.config import Settings, get_settings
+from app.config import Settings, get_settings, ollama_models_for_api, resolve_ollama_chat_model
 from app.config_store import load_config_data
 from app.database import get_db
 from app.models import Conversation, Message
-from app.schemas import ChatRequest, ChatResponse
+from app.schemas import ChatRequest, ChatResponse, ModelsResponse
 from app.security import get_current_user
 from app.services.ollama import generate_reply
 
 router = APIRouter(tags=["chat"])
+
+
+@router.get("/models", response_model=ModelsResponse)
+async def list_models(
+    settings: Settings = Depends(get_settings),
+    _user: str = Depends(get_current_user),
+) -> ModelsResponse:
+    models, default = ollama_models_for_api(settings)
+    return ModelsResponse(models=models, default=default)
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -69,7 +78,17 @@ async def chat(
     extra = str(config_data.get("personnalite_extra") or "")
 
     try:
-        reponse_texte = await generate_reply(settings, ollama_messages, personnalite_extra=extra)
+        resolved_model = resolve_ollama_chat_model(settings, body.model)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e)) from e
+
+    try:
+        reponse_texte = await generate_reply(
+            settings,
+            ollama_messages,
+            personnalite_extra=extra,
+            model=resolved_model,
+        )
     except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,

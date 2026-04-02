@@ -28,18 +28,18 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-yuki-bg to-yuki-surface">
-      <div className="w-full max-w-md rounded-2xl border border-yuki-border bg-yuki-surface/80 p-8 shadow-xl backdrop-blur">
+      <div className="w-full max-w-md rounded-2xl border border-yuki-border bg-yuki-surface/90 dark:bg-yuki-surface/80 p-8 shadow-xl backdrop-blur">
         <div className="flex items-center gap-3 mb-6">
           <div className="rounded-xl bg-yuki-accent/20 p-3 text-yuki-accent">
             <Sparkles className="w-8 h-8" />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-white">Yuki</h1>
+            <h1 className="text-xl font-semibold text-yuki-text">Yuki</h1>
             <p className="text-sm text-yuki-muted">Assistant personnel — connexion</p>
           </div>
         </div>
         {demo && (
-          <p className="text-xs text-amber-200/90 mb-4 rounded-lg bg-amber-500/10 px-3 py-2 border border-amber-500/20">
+          <p className="text-xs text-amber-900 dark:text-amber-200/90 mb-4 rounded-lg bg-amber-500/15 dark:bg-amber-500/10 px-3 py-2 border border-amber-600/25 dark:border-amber-500/20">
             Mode démo : mot de passe prérempli pour les tests locaux uniquement.
           </p>
         )}
@@ -50,7 +50,7 @@ export default function LoginPage() {
               type="password"
               value={motDePasse}
               onChange={(e) => setMotDePasse(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-yuki-border bg-yuki-bg px-4 py-3 text-white outline-none focus:ring-2 focus:ring-yuki-accent/50"
+              className="mt-1 w-full rounded-xl border border-yuki-border bg-yuki-bg px-4 py-3 text-yuki-text outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
               autoComplete="current-password"
               required
             />
@@ -63,7 +63,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={charge}
-            className="w-full rounded-xl bg-yuki-accent py-3 font-medium text-yuki-bg hover:opacity-90 disabled:opacity-50 transition"
+            className="w-full rounded-xl bg-yuki-accent py-3 font-medium text-yuki-on-accent hover:opacity-90 disabled:opacity-50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-surface"
           >
             {charge ? "Connexion…" : "Entrer"}
           </button>

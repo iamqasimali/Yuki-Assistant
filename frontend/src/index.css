@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light (default root) — contrastes lisibles */
+:root {
+  --color-yuki-bg: #f1f5f9;
+  --color-yuki-surface: #ffffff;
+  --color-yuki-border: #e2e8f0;
+  --color-yuki-accent: #4f6ef7;
+  --color-yuki-muted: #475569;
+  --color-yuki-text: #0f172a;
+  --color-yuki-text-secondary: #334155;
+  --color-yuki-user-bubble: rgba(79, 110, 247, 0.12);
+  --color-yuki-on-accent: #0f172a;
+}
+
+.dark {
+  --color-yuki-bg: #0f1117;
+  --color-yuki-surface: #181b26;
+  --color-yuki-border: #2a2f3d;
+  --color-yuki-accent: #7c9cff;
+  --color-yuki-muted: #8b92a8;
+  --color-yuki-text: #f1f5f9;
+  --color-yuki-text-secondary: #cbd5e1;
+  --color-yuki-user-bubble: rgba(124, 156, 255, 0.25);
+  --color-yuki-on-accent: #0f1117;
+}
+
 body {
-  @apply bg-yuki-bg text-slate-100 antialiased min-h-screen;
+  @apply antialiased min-h-screen;
+  background-color: var(--color-yuki-bg);
+  color: var(--color-yuki-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

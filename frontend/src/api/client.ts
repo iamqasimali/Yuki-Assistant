@@ -59,10 +59,32 @@ export async function fetchHistory(conversationId: string): Promise<{
   return apiFetch(`/history?${q.toString()}`);
 }
 
+export interface ConversationListItemDto {
+  id: string;
+  title: string | null;
+  updated_at: string;
+}
+
+export async function fetchConversations(
+  limit = 100,
+  offset = 0,
+): Promise<{ conversations: ConversationListItemDto[]; total: number }> {
+  const q = new URLSearchParams({
+    limit: String(limit),
+    offset: String(offset),
+  });
+  return apiFetch(`/conversations?${q.toString()}`);
+}
+
+export async function fetchModels(): Promise<{ models: string[]; default: string }> {
+  return apiFetch("/models");
+}
+
 export async function sendChat(body: {
   message: string;
   conversation_id?: string | null;
   contexte_fichier?: string | null;
+  model?: string | null;
 }): Promise<{ reponse: string; conversation_id: string }> {
   return apiFetch("/chat", { method: "POST", body: JSON.stringify(body) });
 }

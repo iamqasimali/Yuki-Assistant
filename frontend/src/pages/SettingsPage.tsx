@@ -46,12 +46,12 @@ export default function SettingsPage() {
     <div className="min-h-screen max-w-xl mx-auto px-4 py-8">
       <Link
         to="/"
-        className="inline-flex items-center gap-2 text-sm text-yuki-muted hover:text-white mb-8"
+        className="inline-flex items-center gap-2 text-sm text-yuki-muted hover:text-yuki-text mb-8"
       >
         <ArrowLeft className="w-4 h-4" />
         Retour au chat
       </Link>
-      <h1 className="text-2xl font-semibold text-white mb-2">Paramètres</h1>
+      <h1 className="text-2xl font-semibold text-yuki-text mb-2">Paramètres</h1>
       <p className="text-sm text-yuki-muted mb-8">
         Ajuste le ton de Yuki avec des instructions supplémentaires (conservées côté serveur).
       </p>
@@ -65,7 +65,7 @@ export default function SettingsPage() {
               value={extra}
               onChange={(e) => setExtra(e.target.value)}
               rows={8}
-              className="mt-2 w-full rounded-xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-yuki-accent/40"
+              className="mt-2 w-full rounded-xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-yuki-text outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/40"
               placeholder="Ex. : « Utilise des phrases courtes quand je suis stressé. »"
             />
           </label>
@@ -74,7 +74,7 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={sauvegarde}
-            className="rounded-xl bg-yuki-accent px-6 py-3 text-sm font-medium text-yuki-bg disabled:opacity-50"
+            className="rounded-xl bg-yuki-accent px-6 py-3 text-sm font-medium text-yuki-on-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-bg"
           >
             {sauvegarde ? "Enregistrement…" : "Enregistrer"}
           </button>

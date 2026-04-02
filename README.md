@@ -91,6 +91,12 @@ npm run dev
 
 Voir `backend/.env.example` et `frontend/.env.example`. En production : `JWT_SECRET` fort, hash bcrypt unique pour `YUKI_PASSWORD_HASH`, HTTPS.
 
+### Chat UI / Ollama (English)
+
+- **`OLLAMA_MODEL_ALLOWLIST`** (optional): comma-separated model names exposed in the web UI and accepted on `POST /chat` (e.g. `llama3,mistral`). If **empty**, only **`OLLAMA_MODEL`** is allowed; any other `model` in the request body is rejected (avoids arbitrary model injection).
+- **`GET /models`** (authenticated): returns `{ "models": [...], "default": "..." }` for the header dropdown.
+- **Microphone** in the chat composer is a **stub** (disabled, “Bientôt disponible”); speech-to-text is not implemented yet.
+
 ## Personnalité de Yuki
 
 - Texte système par défaut : `backend/app/prompts.py`  

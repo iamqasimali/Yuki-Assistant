@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import auth, chat, config_route, history, upload
+from app.routers import auth, chat, config_route, conversations, history, upload
 
 settings = get_settings()
 
@@ -28,6 +28,7 @@ app.include_router(auth.router)
 app.include_router(chat.router)
 app.include_router(upload.router)
 app.include_router(history.router)
+app.include_router(conversations.router)
 app.include_router(config_route.router)
 
 

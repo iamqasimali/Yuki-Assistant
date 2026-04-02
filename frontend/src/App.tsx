@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/auth/AuthContext";
+import ChatLayout from "@/components/chat/ChatLayout";
+import ChatWorkspace from "@/components/chat/ChatWorkspace";
 import LoginPage from "@/pages/LoginPage";
-import ChatPage from "@/pages/ChatPage";
 import SettingsPage from "@/pages/SettingsPage";
 
 function Protege({ children }: { children: ReactNode }) {
@@ -19,10 +20,13 @@ function RoutesInternes() {
         path="/"
         element={
           <Protege>
-            <ChatPage />
+            <ChatLayout />
           </Protege>
         }
-      />
+      >
+        <Route index element={<ChatWorkspace />} />
+        <Route path="c/:conversationId" element={<ChatWorkspace />} />
+      </Route>
       <Route
         path="/parametres"
         element={

@@ -23,6 +23,11 @@ class ChatRequest(BaseModel):
         None,
         description="Texte extrait d’un fichier déjà envoyé via /upload",
     )
+    model: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="Modèle Ollama (doit être dans OLLAMA_MODEL_ALLOWLIST si défini)",
+    )
 
 
 class ChatResponse(BaseModel):
@@ -48,6 +53,24 @@ class HistoryResponse(BaseModel):
     messages: list[MessageOut]
     conversation_id: UUID
     prochain_curseur: Optional[str] = None
+
+
+class ConversationListItem(BaseModel):
+    id: UUID
+    title: Optional[str] = None
+    updated_at: datetime
+
+    model_config = {"from_attributes": False}
+
+
+class ConversationListResponse(BaseModel):
+    conversations: list[ConversationListItem]
+    total: int
+
+
+class ModelsResponse(BaseModel):
+    models: list[str]
+    default: str
 
 
 class ConfigOut(BaseModel):

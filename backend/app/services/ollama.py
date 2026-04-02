@@ -10,6 +10,8 @@ async def generate_reply(
     settings: Settings,
     messages: list[dict[str, str]],
     personnalite_extra: str = "",
+    *,
+    model: str | None = None,
 ) -> str:
     """
     messages : liste de { "role": "user"|"assistant", "content": "..." }
@@ -19,10 +21,11 @@ async def generate_reply(
     if personnalite_extra.strip():
         system += "\n\nInstructions supplémentaires de l’utilisateur :\n" + personnalite_extra.strip()
 
+    resolved_model = (model or settings.ollama_model or "llama3").strip()
     url = f"{settings.ollama_base_url.rstrip('/')}/api/chat"
     ollama_messages = [{"role": "system", "content": system}, *messages]
     payload = {
-        "model": settings.ollama_model,
+        "model": resolved_model,
         "messages": ollama_messages,
         "stream": False,
     }
@@ -32,7 +35,7 @@ async def generate_reply(
             detail = r.text[:500]
             raise RuntimeError(
                 f"Ollama a répondu {r.status_code}. Vérifiez que le modèle "
-                f"« {settings.ollama_model} » est disponible (ollama pull). Détail : {detail}"
+                f"« {resolved_model} » est disponible (ollama pull). Détail : {detail}"
             )
         r.raise_for_status()
         data = r.json()
