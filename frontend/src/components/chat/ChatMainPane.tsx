@@ -140,7 +140,8 @@ export default function ChatMainPane({ selectedModel }: Props) {
 
   return (
     <div className="flex flex-col flex-1 min-h-0 min-w-0 bg-yuki-bg">
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+      <div className="flex-1 overflow-y-auto px-4 py-6">
+        <div className="max-w-3xl mx-auto space-y-4">
         {messages.length === 0 && (
           <p className="text-center text-yuki-muted text-sm py-12">
             Écris un message pour commencer. Tu peux joindre un PDF, un DOCX ou une image.
@@ -156,10 +157,10 @@ export default function ChatMainPane({ selectedModel }: Props) {
                 {m.role === "user" ? "Vous" : "Yuki"}
               </p>
               <div
-                className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                className={`rounded-3xl px-4 py-3.5 text-sm leading-relaxed ${
                   m.role === "user"
-                    ? "bg-yuki-user-bubble text-yuki-text rounded-br-md"
-                    : "bg-yuki-surface border border-yuki-border text-yuki-text-secondary rounded-bl-md"
+                    ? "bg-yuki-user-bubble text-yuki-text rounded-br-xl"
+                    : "bg-yuki-surface border border-yuki-border text-yuki-text-secondary rounded-bl-xl shadow-sm dark:shadow-none"
                 }`}
               >
                 {m.content}
@@ -169,22 +170,24 @@ export default function ChatMainPane({ selectedModel }: Props) {
         ))}
         {envoi && (
           <div className="flex justify-start">
-            <div className="inline-flex items-center gap-2 rounded-2xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-yuki-muted">
+            <div className="inline-flex items-center gap-2 rounded-3xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-yuki-muted">
               <Loader2 className="w-4 h-4 animate-spin" aria-hidden />
               Yuki réfléchit…
             </div>
           </div>
         )}
         <div ref={finRef} />
+        </div>
       </div>
 
       {nomFichier && contexteFichier && (
-        <div className="px-4 py-2 text-xs text-yuki-muted border-t border-yuki-border bg-yuki-surface/30">
+        <div className="max-w-3xl mx-auto w-full px-4 mb-1">
+        <div className="rounded-2xl px-4 py-2 text-xs text-yuki-muted border border-yuki-border bg-yuki-surface/50">
           Fichier prêt : <span className="text-yuki-accent">{nomFichier}</span> — sera inclus avec le
           prochain message.
           <button
             type="button"
-            className="ml-2 underline cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50 rounded"
+            className="ml-2 underline cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50 rounded-md"
             onClick={() => {
               setContexteFichier(null);
               setNomFichier(null);
@@ -193,21 +196,25 @@ export default function ChatMainPane({ selectedModel }: Props) {
             Retirer
           </button>
         </div>
+        </div>
       )}
 
       {erreur && (
-        <div
-          className="px-4 py-2 text-sm text-red-700 dark:text-red-300 bg-red-500/10 border-t border-red-500/20"
-          role="alert"
-        >
-          {erreur}
+        <div className="max-w-3xl mx-auto w-full px-4 mb-2">
+          <div
+            className="rounded-2xl px-4 py-2 text-sm text-red-700 dark:text-red-300 bg-red-500/10 border border-red-500/20"
+            role="alert"
+          >
+            {erreur}
+          </div>
         </div>
       )}
 
       <form
         onSubmit={handleSubmit}
-        className="p-4 border-t border-yuki-border bg-yuki-surface/50 flex gap-2 items-end"
+        className="p-4 border-t border-yuki-border bg-yuki-surface/50 rounded-t-3xl"
       >
+        <div className="max-w-3xl mx-auto flex gap-2 items-end w-full">
         <input
           ref={fichierRef}
           type="file"
@@ -218,7 +225,7 @@ export default function ChatMainPane({ selectedModel }: Props) {
         <button
           type="button"
           onClick={() => fichierRef.current?.click()}
-          className="cursor-pointer shrink-0 rounded-xl border border-yuki-border p-3 text-yuki-muted hover:text-yuki-text hover:border-yuki-accent/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+          className="cursor-pointer shrink-0 rounded-full border border-yuki-border p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-yuki-muted hover:text-yuki-text hover:border-yuki-accent/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
           aria-label="Joindre un fichier"
         >
           <Paperclip className="w-5 h-5" />
@@ -238,13 +245,13 @@ export default function ChatMainPane({ selectedModel }: Props) {
           }}
           rows={2}
           placeholder="Écrivez votre message…"
-          className="flex-1 resize-none rounded-xl border border-yuki-border bg-yuki-bg px-4 py-3 text-sm text-yuki-text placeholder:text-yuki-muted outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/40"
+          className="flex-1 resize-none rounded-2xl border border-yuki-border bg-yuki-bg px-4 py-3 text-sm text-yuki-text placeholder:text-yuki-muted outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/40"
         />
         <button
           type="button"
           disabled
           title="Bientôt disponible"
-          className="cursor-not-allowed shrink-0 rounded-xl border border-yuki-border p-3 text-yuki-muted opacity-60"
+          className="cursor-not-allowed shrink-0 rounded-full border border-yuki-border p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-yuki-muted opacity-60"
           aria-label="Saisie vocale (bientôt disponible)"
         >
           <Mic className="w-5 h-5" />
@@ -252,11 +259,12 @@ export default function ChatMainPane({ selectedModel }: Props) {
         <button
           type="submit"
           disabled={envoi || !saisie.trim()}
-          className="cursor-pointer shrink-0 rounded-xl bg-yuki-accent p-3 text-yuki-on-accent disabled:opacity-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-surface"
+          className="cursor-pointer shrink-0 rounded-full bg-yuki-accent p-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-yuki-on-accent disabled:opacity-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-surface"
           aria-label="Envoyer"
         >
           <Send className="w-5 h-5" />
         </button>
+        </div>
       </form>
     </div>
   );
