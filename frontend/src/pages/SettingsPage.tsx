@@ -65,7 +65,7 @@ export default function SettingsPage() {
               value={extra}
               onChange={(e) => setExtra(e.target.value)}
               rows={8}
-              className="mt-2 w-full rounded-xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-yuki-text outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/40"
+              className="mt-2 w-full rounded-2xl border border-yuki-border bg-yuki-surface px-4 py-3 text-sm text-yuki-text outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/40"
               placeholder="Ex. : « Utilise des phrases courtes quand je suis stressé. »"
             />
           </label>
@@ -74,7 +74,7 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={sauvegarde}
-            className="rounded-xl bg-yuki-accent px-6 py-3 text-sm font-medium text-yuki-on-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-bg"
+            className="rounded-2xl bg-yuki-accent px-6 py-3.5 text-sm font-medium text-yuki-on-accent disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent focus-visible:ring-offset-2 focus-visible:ring-offset-yuki-bg"
           >
             {sauvegarde ? "Enregistrement…" : "Enregistrer"}
           </button>

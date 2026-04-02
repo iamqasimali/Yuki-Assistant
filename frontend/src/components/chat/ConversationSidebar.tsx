@@ -71,7 +71,7 @@ export default function ConversationSidebar() {
 
   return (
     <aside
-      className={`flex flex-col border-r border-yuki-border bg-yuki-surface shrink-0 transition-[width] duration-200 ease-out motion-reduce:transition-none ${
+      className={`flex flex-col border-r border-yuki-border bg-yuki-surface shrink-0 overflow-hidden rounded-r-3xl transition-[width] duration-200 ease-out motion-reduce:transition-none ${
         collapsed ? "w-[52px]" : "w-[280px]"
       }`}
       aria-label="Conversations"
@@ -81,7 +81,7 @@ export default function ConversationSidebar() {
         <button
           type="button"
           onClick={toggleCollapsed}
-          className="cursor-pointer rounded-lg p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+          className="cursor-pointer rounded-xl p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
           aria-label={collapsed ? "Déplier la barre latérale" : "Replier la barre latérale"}
         >
           {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
@@ -109,7 +109,7 @@ export default function ConversationSidebar() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Rechercher des chats"
-                className="w-full rounded-xl border border-yuki-border bg-yuki-bg py-2 pl-9 pr-3 text-sm text-yuki-text placeholder:text-yuki-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+                className="w-full rounded-2xl border border-yuki-border bg-yuki-bg py-2.5 pl-9 pr-3 text-sm text-yuki-text placeholder:text-yuki-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
                 aria-label="Rechercher des chats"
               />
             </div>
@@ -117,7 +117,9 @@ export default function ConversationSidebar() {
 
           <nav className="flex-1 overflow-y-auto px-2 pb-2 space-y-0.5" aria-label="Historique">
             {loadError && (
-              <p className="text-xs text-red-500 dark:text-red-400 px-2 py-1">{loadError}</p>
+              <p className="text-xs text-red-600 dark:text-red-400 mx-2 mb-2 rounded-2xl border border-red-500/25 bg-red-500/10 px-3 py-2">
+                {loadError}
+              </p>
             )}
             {filtered.map((c) => {
               const active = activeId === c.id;
@@ -126,7 +128,7 @@ export default function ConversationSidebar() {
                 <Link
                   key={c.id}
                   to={`/c/${c.id}`}
-                  className={`cursor-pointer block rounded-xl px-3 py-2.5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50 ${
+                  className={`cursor-pointer block rounded-2xl px-3 py-2.5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50 ${
                     active
                       ? "bg-yuki-border/50 text-yuki-text"
                       : "text-yuki-muted hover:bg-yuki-border/30 hover:text-yuki-text"
@@ -143,7 +145,7 @@ export default function ConversationSidebar() {
 
           <div className="mt-auto border-t border-yuki-border p-2 space-y-0.5">
             <div
-              className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-yuki-muted opacity-60 cursor-not-allowed"
+              className="flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-yuki-muted opacity-60 cursor-not-allowed"
               title="Un seul compte pour cet assistant"
             >
               <User className="w-4 h-4 shrink-0" aria-hidden />
@@ -151,7 +153,7 @@ export default function ConversationSidebar() {
             </div>
             <Link
               to="/parametres"
-              className="cursor-pointer flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-yuki-muted hover:bg-yuki-border/30 hover:text-yuki-text focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+              className="cursor-pointer flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-yuki-muted hover:bg-yuki-border/30 hover:text-yuki-text focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
             >
               <Settings className="w-4 h-4 shrink-0" aria-hidden />
               Paramètres
@@ -162,7 +164,7 @@ export default function ConversationSidebar() {
                 deconnexion();
                 navigate("/connexion", { replace: true });
               }}
-              className="cursor-pointer w-full flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-yuki-muted hover:bg-yuki-border/30 hover:text-yuki-text focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+              className="cursor-pointer w-full flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-yuki-muted hover:bg-yuki-border/30 hover:text-yuki-text focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
             >
               <LogOut className="w-4 h-4 shrink-0" aria-hidden />
               Déconnexion
@@ -176,14 +178,14 @@ export default function ConversationSidebar() {
           <button
             type="button"
             onClick={handleNewChat}
-            className="cursor-pointer rounded-lg p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+            className="cursor-pointer rounded-xl p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
             aria-label="Nouvelle conversation"
           >
             <Plus className="w-5 h-5" />
           </button>
           <Link
             to="/parametres"
-            className="cursor-pointer rounded-lg p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+            className="cursor-pointer rounded-xl p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
             aria-label="Paramètres"
           >
             <Settings className="w-5 h-5" />
@@ -194,7 +196,7 @@ export default function ConversationSidebar() {
               deconnexion();
               navigate("/connexion", { replace: true });
             }}
-            className="cursor-pointer rounded-lg p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
+            className="cursor-pointer rounded-xl p-2 text-yuki-muted hover:text-yuki-text hover:bg-yuki-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-yuki-accent/50"
             aria-label="Déconnexion"
           >
             <LogOut className="w-5 h-5" />
