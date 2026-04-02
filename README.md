@@ -21,16 +21,49 @@ Assistant personnel IA avec mémoire, analyse de fichiers (PDF, DOCX, images) et
 
 ### 1. Base de données
 
+Depuis la **racine du dépôt** (là où se trouve `docker-compose.yml`) :
+
 ```bash
 docker compose up -d db
 ```
+
+Vérifiez que le conteneur écoute bien : `docker compose ps`. Le port **5432** doit être libre ; sinon Compose ne pourra pas publier le service ou un autre Postgres prendra la connexion.
+
+### Dépannage : `FATAL: role "yuki" does not exist`
+
+Cela signifie qu’une base PostgreSQL répond sur `localhost:5432`, mais **sans** l’utilisateur `yuki` (souvent Postgres local Homebrew / Postgres.app, pas l’image du projet).
+
+1. **Recommandé** : arrêter l’autre Postgres sur 5432 (ou changer son port), puis `docker compose up -d db` et réessayez `alembic upgrade head`.
+2. **Alternative** : dans `docker-compose.yml`, mappez par ex. `"5433:5432"` et utilisez  
+   `DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5433/yuki`.
+3. **Sans Docker** : en `psql` en superutilisateur, par exemple :
+
+```sql
+CREATE USER yuki WITH PASSWORD 'yuki';
+CREATE DATABASE yuki OWNER yuki;
+\c yuki
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+Puis `DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5432/yuki` (ou le port réel de votre instance).
+
+### Dépannage : `command not found: alembic`
+
+`alembic` n’est pas installé globalement : il est dans le **venv**. Soit vous activez le venv (`source .venv/bin/activate` sous macOS/Linux), soit vous appelez l’exécutable directement depuis `backend/` :
+
+```bash
+.venv/bin/alembic upgrade head
+.venv/bin/uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+(Équivalent : `python -m alembic` / `python -m uvicorn` **avec le `python` du venv**.)
 
 ### 2. Backend
 
 ```bash
 cd backend
 python3 -m venv .venv
-source .venv/bin/activate   # Windows : .venv\Scripts\activate
+source .venv/bin/activate   # Windows : .venv\Scripts\activate — requis pour `alembic` / `uvicorn` dans le PATH
 pip install -r requirements.txt
 cp .env.example .env
 export DATABASE_URL=postgresql+asyncpg://yuki:yuki@localhost:5432/yuki
