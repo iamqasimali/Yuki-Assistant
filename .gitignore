@@ -14,4 +14,5 @@ dist/
 build/
 *.egg-info/
 .DS_Store
-config.bat
+.env
+.env.*
